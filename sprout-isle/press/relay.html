@@ -1,0 +1,9 @@
+<!doctype html><meta charset="utf-8"><title>relay</title>
+<script>
+addEventListener('message', async e => {
+  const p = e.data && e.data.path;
+  if (typeof p !== 'string' || !p.startsWith('/sprout-isle/press/') || p.includes('..')) return;
+  const b = await (await fetch(p)).blob();
+  e.source.postMessage({ id: e.data.id, blob: b }, '*');
+});
+</script>
